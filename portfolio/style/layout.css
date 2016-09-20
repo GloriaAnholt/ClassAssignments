@@ -49,7 +49,17 @@ Used the break-point design style presented in the TreeHouse Responsive Layouts 
 
 
 /* Projects body styling */
-.projects div {
+
+.projectsTemplate {
+    display: none;
+}
+
+.projectPub {
+    font-size: .9em;
+    display: inline-block;
+}
+
+article {
     border: 5px solid #BFAF80;
     border-radius: 25px;
     padding: 1em;
@@ -57,7 +67,17 @@ Used the break-point design style presented in the TreeHouse Responsive Layouts 
     background-color: #F2EEB3;
 }
 
-.projects img {
+article div {
+    font-size: .9em;
+    display: inline-block;
+}
+
+article time {
+    font-size: .9em;
+    display: inline-block;
+}
+
+article img {
     width: 90%;
     padding: 5px;
 }
