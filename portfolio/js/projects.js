@@ -5,6 +5,7 @@ var projectArray = [];
 
 function Projects (data) {
     this.title = data.title;
+    this.link = data.link;
     this.body = data.body;
     this.imagesrc = data.imagesrc;
     this.imagealt = data.imagealt;
@@ -18,6 +19,7 @@ Projects.prototype.createHtml = function() {
 
     var $currentProject = $('article.projectsTemplate').clone();
     $currentProject.find('h2').text(this.title);
+    $currentProject.find('a').attr('href', this.link);
     $currentProject.find('p.projectBody').html(this.body);
     $currentProject.find('img').attr('src', this.imagesrc);
     $currentProject.find('img').attr('alt', this.imagealt);
