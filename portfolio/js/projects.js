@@ -6,6 +6,7 @@ var projectArray = [];
 function Projects (data) {
     this.title = data.title;
     this.link = data.link;
+    this.category = data.category;
     this.body = data.body;
     this.imagesrc = data.imagesrc;
     this.imagealt = data.imagealt;
