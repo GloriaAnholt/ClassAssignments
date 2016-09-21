@@ -23,10 +23,10 @@ Projects.prototype.createHtml = function() {
     $currentProject.find('p.projectBody').html(this.body);
     $currentProject.find('img').attr('src', this.imagesrc);
     $currentProject.find('img').attr('alt', this.imagealt);
-    $currentProject.find('div').text(this.pubDate);
+    $currentProject.find('div').text(this.pubDate + ',');
 
     $currentProject.find('time[pubdate]').attr('title', this.pubDate);
-    $currentProject.find('time').html(', about ' + parseInt(new Date() - new Date(this.pubDate))/3600/24/1000 + ' days ago.');
+    $currentProject.find('time').html('about ' + parseInt(new Date() - new Date(this.pubDate))/3600/24/1000 + ' days ago.');
 
     $currentProject.removeClass('projectsTemplate');
     return $currentProject;

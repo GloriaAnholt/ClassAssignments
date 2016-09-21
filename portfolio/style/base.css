@@ -69,12 +69,13 @@ a, a:link, a:active {
     p {
         font-size: 1em;
     }
-    .projects {
+
+    section.projects {
         width: 100%;
         text-align: center;
     }
 
-    .projects div {
+    article {
         width: 80%;
         margin: 0 auto;
         display: inline-block;
@@ -110,12 +111,12 @@ a, a:link, a:active {
         font-size: 1em;
     }
 
-    .projects {
+    section.projects {
         width: 100%;
         text-align: center;
     }
 
-    .projects div {
+    article {
         width: 40%;
         margin: 0 auto;
         display: inline-block;
