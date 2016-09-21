@@ -28,6 +28,9 @@ a, a:link, a:active {
     text-decoration: none;
 }
 
+a.read-more, a.read-more:link, a.read-more:active {
+    text-decoration: none;
+}
 
 /* Media Query Stuff */
 @media only screen and (min-width: 450px) {

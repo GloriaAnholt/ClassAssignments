@@ -18,6 +18,18 @@ projectsView.handleTabs = function() {
     $('.main-nav .tab:first').click();
 };
 
+projectsView.setTeasers = function() {
+    // Limit project descriptions to first p unless link is clicked.
+
+    // this nth selector grabs everybody 2 after me
+    $('.projectBody *:nth-of-type(n+2)').hide();
+
+    $('#projects').on('click', '.read-more', function(e) {
+        e.preventDefault();
+        $(this).parent().find('p.projectBody *').show();
+    })
+};
 
 // Call all of the functions to make them run!
 projectsView.handleTabs();
+projectsView.setTeasers();

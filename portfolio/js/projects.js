@@ -20,7 +20,7 @@ Projects.prototype.createHtml = function() {
 
     var $currentProject = $('article.projectsTemplate').clone();
     $currentProject.find('h2').text(this.title);
-    $currentProject.find('a').attr('href', this.link);
+    $currentProject.find('a').not('.read-more').attr('href', this.link);
     $currentProject.find('p.projectBody').html(this.body);
     $currentProject.find('img').attr('src', this.imagesrc);
     $currentProject.find('img').attr('alt', this.imagealt);
