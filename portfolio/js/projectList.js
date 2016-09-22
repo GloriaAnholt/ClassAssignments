@@ -5,7 +5,7 @@ myBlogPosts = [
         title: 'Wild Mushrooms of Pacific Northwest Website',
         titleUrl: 'https://gloriaanholt.github.io/JavaScriptProjects/CodeFellows201/',
         category: 'Web Development',
-        body: '<p> For this project, I used vanilla JavaScript and hand-coded HTML/CSS to create a simple responsive website which functions like a dichotomous tree for mushrooms. Click through the various types to see what edibles are in the Portland area!</p><p>This needs to have two paragraph tags to work! Here\'s a second one.</p>',
+        body: '<p>For this project, I used vanilla JavaScript and hand-coded HTML/CSS to create a simple responsive website which functions like a dichotomous tree for mushrooms. Click through the various types to see what edibles are in the Portland area!</p><p>This needs to have two paragraph tags to work! Here\'s a second one.</p>',
         imageSrc: 'img/mushrooms.jpg',
         imageAlt: 'Screenshot of mushroom selector website in action',
         pubDate: '2016-08-10'

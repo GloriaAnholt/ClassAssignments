@@ -22,15 +22,15 @@ projectsView.setTeasers = function() {
     // Limit project descriptions to first p unless link is clicked.
 
     // this nth selector grabs everybody 2 after me
-    $('.projectBody *:nth-of-type(n+2)').hide();
+    $('.projectBody p:nth-of-type(n+2)').hide();
 
     $('#projects').on('click', '.read-more', function(e) {
         e.preventDefault();
         if ( $(this).text() === 'Read More' ) {
-            $(this).parent().find('p.projectBody *').show();
+            $(this).parent().find('p').show();
             $(this).text('Hide');
         } else {
-            $(this).parent().find('.projectBody *:nth-of-type(n+2)').hide();
+            $(this).parent().find('.projectBody p:nth-of-type(n+2)').hide();
             $(this).text('Read More');
         }
     })
