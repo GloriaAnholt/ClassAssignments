@@ -26,10 +26,46 @@ projectsView.setTeasers = function() {
 
     $('#projects').on('click', '.read-more', function(e) {
         e.preventDefault();
-        $(this).parent().find('p.projectBody *').show();
+        if ( $(this).text() === 'Read More' ) {
+            $(this).parent().find('p.projectBody *').show();
+            $(this).text('Hide');
+        } else {
+            $(this).parent().find('.projectBody *:nth-of-type(n+2)').hide();
+            $(this).text('Read More');
+        }
     })
+};
+
+projectsView.createFilterList = function() {
+  // Auto-populate the filters based on the projects on the portfolio page
+    $('article').not('.projectsTemplate').each(function() {
+        var category, newOptionTag;
+        category = $(this).attr('data-category');
+        newOptionTag = '<option value="' + category + '">' +
+            category + '</option>';
+        if ($('#category-filter option[value="' + category + '"]').length === 0) {
+            $('#category-filter').append(newOptionTag);
+        }
+    })
+
+
+};
+
+projectsView.handleCategoryFilter = function() {
+    // On change in drop down, display posts based on selection
+    $('#category-filter').on('change', function() {
+        if ( $(this).val() ) {
+            var selection = $(this).val();
+            $('article').hide();
+            $('article').filter('[data-category="' + selection + '"]').fadeIn('slow');
+        } else {
+            $('article').not('.projectsTemplate').hide().fadeIn('slow');
+        }
+    });
 };
 
 // Call all of the functions to make them run!
 projectsView.handleTabs();
 projectsView.setTeasers();
+projectsView.createFilterList();
+projectsView.handleCategoryFilter();
