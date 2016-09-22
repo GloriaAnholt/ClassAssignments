@@ -17,8 +17,8 @@ Projects.prototype.createHtml = function() {
     var template = Handlebars.compile($sourceHtml);
     this.pubDate = this.pubDate ?
         'Published on: ' + this.pubDate + ", about " +
-        parseInt(new Date() - new Date(this.pubDate)/3600/24/1000) +
-        'days ago.' : '(draft)';
+        Math.floor(parseInt(new Date() - new Date(this.pubDate))/3600/24/1000) +
+        ' days ago.' : '(draft)';
     var newHtml = template(this);
     
     return newHtml;
