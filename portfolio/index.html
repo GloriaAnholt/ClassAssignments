@@ -8,6 +8,15 @@
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="style/base.css">
     <link rel="stylesheet" href="style/layout.css">
+    <script id="projects-template" type="text/x-handlebars-template">
+        <article>
+            <a href="{{titleUrl}}" target="_blank"><h2>{{title}}</h2></a>
+            <p class="projectPub">{{pubDate}}</p>
+            <p class="projectBody">{{{body}}}</p>
+            <a href="#" class="read-more">Read More</a>
+            <img src="{{imageSrc}}" alt="{{imageAlt}}">
+        </article>
+    </script>
 </head>
 <body>
     <header class="header">
@@ -30,7 +39,6 @@
 
     <section id="projects" class="tab-content">
         <h2>Recent Projects</h2>
-
         <div>
             <ul id="filters">
                 <li>
@@ -40,14 +48,6 @@
                 </li>
             </ul>
         </div>
-
-        <article class="projectsTemplate">
-            <a href="" target="_blank"><h2>Title</h2></a>
-            <p class="projectPub">Originally published on&nbsp;<div></div>&nbsp;<time pubdate="2000-01-01"></time></p>
-            <p class="projectBody">body text</p>
-            <a href="#" class="read-more">Read More</a>
-            <img src="" alt="">
-        </article>
     </section>
 
     <section id="resume" class="tab-content">
@@ -69,6 +69,7 @@
 
     <!-- Scripts go here! -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
     <script src="js/projectList.js"></script>
     <script src="js/projects.js"></script>
     <script src="js/projectView.js"></script>
