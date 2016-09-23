@@ -1,6 +1,6 @@
 // This is where the blog post data lives
 
-myBlogPosts = [
+myProjects = [
     {
         title: 'Wild Mushrooms of Pacific Northwest Website',
         titleUrl: 'https://gloriaanholt.github.io/JavaScriptProjects/CodeFellows201/',

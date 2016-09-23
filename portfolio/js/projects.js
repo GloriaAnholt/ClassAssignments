@@ -2,6 +2,7 @@
 // index.html page using Handlebars.
 
 var projectArray = [];
+var filtersArray = [];
 
 function Projects (data) {
     for (var key in data)
@@ -24,19 +25,37 @@ Projects.prototype.createHtml = function() {
     return newHtml;
 };
 
-myBlogPosts.sort(function(cur, next) {
+function createFilters(obj) {
+    var $sourceHtml = $('#filters-template').html();
+    var template = Handlebars.compile($sourceHtml);
+    var newHtml = template(obj);
+
+    return newHtml;
+}
+
+myProjects.sort(function(cur, next) {
     // subtract the next from the current and return to the sort function,
     // so it can sort things by date for you
     return ( (new Date(next.pubDate)) - (new Date(cur.pubDate)) );
 });
 
-myBlogPosts.forEach(function(element) {
+myProjects.forEach(function(element) {
     // For each thing in the array of blog posts, use the constructor to make
     // it into an object, have it's attributes updates, then push into the
-    // array which is going to be drawn to the page
+    // array which is passed to Handlebars to populate the page
     projectArray.push(new Projects(element));
+
+    // In the loop, grab out the filter and make it into an object for Handlebars
+    var newObj = {};
+    newObj['category'] = element.category;
+    filtersArray.push(createFilters(newObj));
 });
+
 
 projectArray.forEach(function(a) {
     $('#projects').append(a.createHtml());
+});
+
+filtersArray.forEach(function(a) {
+    $('#category-filter').append(a);
 });

@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="style/base.css">
     <link rel="stylesheet" href="style/layout.css">
+
+    <!-- Use Handlebars to set up the projects body -->
     <script id="projects-template" type="text/x-handlebars-template">
         <article>
             <a href="{{titleUrl}}" target="_blank"><h2>{{title}}</h2></a>
@@ -17,6 +19,12 @@
             <img src="{{imageSrc}}" alt="{{imageAlt}}">
         </article>
     </script>
+
+    <!-- Use Handlebars to set up the category filter select bar -->
+    <script id="filters-template" type="text/x-handlebars-template">
+        <option value="{{category}}">{{category}}</option>
+    </script>
+
 </head>
 <body>
     <header class="header">
@@ -43,7 +51,7 @@
             <ul id="filters">
                 <li>
                     <select id="category-filter">
-                        <option value="">Select A Category</option>
+                        <option value="">---Select A Category---</option>
                     </select>
                 </li>
             </ul>

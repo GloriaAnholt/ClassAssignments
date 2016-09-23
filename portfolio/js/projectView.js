@@ -36,6 +36,8 @@ projectsView.setTeasers = function() {
     })
 };
 
+/*
+
 projectsView.createFilterList = function() {
   // Auto-populate the filters based on the projects on the portfolio page
     $('article').not('.projectsTemplate').each(function() {
@@ -47,9 +49,8 @@ projectsView.createFilterList = function() {
             $('#category-filter').append(newOptionTag);
         }
     })
-
-
 };
+*/
 
 projectsView.handleCategoryFilter = function() {
     // On change in drop down, display posts based on selection
@@ -67,5 +68,5 @@ projectsView.handleCategoryFilter = function() {
 // Call all of the functions to make them run!
 projectsView.handleTabs();
 projectsView.setTeasers();
-projectsView.createFilterList();
+// projectsView.createFilterList();
 projectsView.handleCategoryFilter();
