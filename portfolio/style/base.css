@@ -19,6 +19,10 @@ h2 {
     font-size: 1.2em;
 }
 
+h3 {
+    font-size: 1.1em;
+}
+
 p {
     font-size: .9em;
 }
@@ -28,15 +32,14 @@ a, a:link, a:active {
     text-decoration: none;
 }
 
+a.read-more, a.read-more:link, a.read-more:active {
+    text-decoration: none;
+    color: #260126;
+}
+
 
 /* Media Query Stuff */
 @media only screen and (min-width: 450px) {
-
-    .header ul li {
-        display: inline-block;
-        padding: 10px;
-        text-align: center;
-    }
 
     h1 {
         font-size: 1.7em;
@@ -46,16 +49,16 @@ a, a:link, a:active {
         color: #260126;
         font-size: 1.3em;
     }
+
+    .header ul li {
+        display: inline-block;
+        padding: 10px;
+        text-align: center;
+    }
 }
 
 /* Goal is to have this display two columns */
 @media only screen and (min-width: 640px) {
-
-    .header ul li {
-        display: inline-block;
-        padding: 10px 25px 10px 25px;
-        text-align: center;
-    }
 
     h1 {
         font-size: 1.9em;
@@ -81,22 +84,16 @@ a, a:link, a:active {
         display: inline-block;
     }
 
-}
-
-/* Goal is to have this display two+ columns */
-@media only screen and (min-width: 900px) {
-
     .header ul li {
         display: inline-block;
         padding: 10px 25px 10px 25px;
         text-align: center;
     }
 
-    .header img {
-        width: 200px;
-        height: auto;
-        border-radius: 5px;
-    }
+}
+
+/* Goal is to have this display two+ columns */
+@media only screen and (min-width: 900px) {
 
     h1 {
         font-size: 1.9em;
@@ -121,6 +118,17 @@ a, a:link, a:active {
         margin: 0 auto;
         display: inline-block;
         vertical-align: top;
+    }
+    .header ul li {
+        display: inline-block;
+        padding: 10px 25px 10px 25px;
+        text-align: center;
+    }
+
+    .header img {
+        width: 200px;
+        height: auto;
+        border-radius: 5px;
     }
 
 }

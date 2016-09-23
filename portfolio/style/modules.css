@@ -1,0 +1,59 @@
+/* Header Styling */
+.header {
+    background-color: #260126;
+    width: 100%;
+    height: 10%;
+    text-align: center;
+}
+
+.header img {
+    display: block;
+    margin: auto;
+    padding: 10px;
+    border: 2px solid #BFAF80;
+    border-radius: 50%;
+}
+
+.header a {
+    color: #F2EEB3;
+    text-decoration: none;
+}
+
+.header ul {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: none;
+}
+
+.header li {
+    display: block;
+    padding: 10px;
+    text-align: center;
+}
+
+.header li:hover {
+    background-color: #59323C;
+}
+
+.headline {
+    text-align: center;
+    color: #59323C;
+}
+
+/*hamburger styling here*/
+
+.lnr {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  color: white;
+}
+
+.lnr-menu {
+  color: white;
+  font-size: 40px;
+}
+
+.lnr:hover .header ul {
+  display: block;
+}
