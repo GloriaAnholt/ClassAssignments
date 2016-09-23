@@ -8,7 +8,9 @@
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="style/base.css">
     <link rel="stylesheet" href="style/layout.css">
-
+    <link rel="stylesheet" href="style/modules.css">
+    <!-- icomoon font for hamburger menu -->
+    <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
     <!-- Use Handlebars to set up the projects body -->
     <script id="projects-template" type="text/x-handlebars-template">
         <article data-category="{{category}}">
@@ -30,6 +32,10 @@
     <header class="header">
         <img src="img/me-cropped.jpg" alt="Close up of woman's face" width="100" height="100">
         <nav class="main-nav">
+        <!-- TODO Go into jQuery and grab the svg to double check how styling should be done -->
+            <svg class="lnr lnr-menu">
+              <use xlink:href="#lnr-menu"></use>
+            </svg>
             <ul>
                 <li class="tab" data-content="projects"><a href="#">Portfolio</a></li>
                 <li class="tab" data-content="resume"><a href="#">Resume</a></li>
