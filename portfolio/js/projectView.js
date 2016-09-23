@@ -36,25 +36,11 @@ projectsView.setTeasers = function() {
     })
 };
 
-/*
-
-projectsView.createFilterList = function() {
-  // Auto-populate the filters based on the projects on the portfolio page
-    $('article').not('.projectsTemplate').each(function() {
-        var category, newOptionTag;
-        category = $(this).attr('data-category');
-        newOptionTag = '<option value="' + category + '">' +
-            category + '</option>';
-        if ($('#category-filter option[value="' + category + '"]').length === 0) {
-            $('#category-filter').append(newOptionTag);
-        }
-    })
-};
-*/
 
 projectsView.handleCategoryFilter = function() {
     // On change in drop down, display posts based on selection
     $('#category-filter').on('change', function() {
+        console.log("here's the this val: ", $(this).val());
         if ( $(this).val() ) {
             var selection = $(this).val();
             $('article').hide();
@@ -68,5 +54,4 @@ projectsView.handleCategoryFilter = function() {
 // Call all of the functions to make them run!
 projectsView.handleTabs();
 projectsView.setTeasers();
-// projectsView.createFilterList();
 projectsView.handleCategoryFilter();
