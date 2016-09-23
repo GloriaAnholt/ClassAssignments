@@ -21,7 +21,7 @@ Projects.prototype.createHtml = function() {
         Math.floor(parseInt(new Date() - new Date(this.pubDate))/3600/24/1000) +
         ' days ago.' : '(draft)';
     var newHtml = template(this);
-    
+
     return newHtml;
 };
 
@@ -36,7 +36,9 @@ function createFilters(obj) {
 myProjects.sort(function(cur, next) {
     // subtract the next from the current and return to the sort function,
     // so it can sort things by date for you
-    return ( (new Date(next.pubDate)) - (new Date(cur.pubDate)) );
+    // return ( (new Date(next.pubDate)) - (new Date(cur.pubDate)) );
+    // sort by ranking
+    return cur.ranking - next.ranking;
 });
 
 myProjects.forEach(function(element) {
