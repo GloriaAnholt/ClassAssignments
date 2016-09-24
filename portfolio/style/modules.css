@@ -40,20 +40,24 @@
     color: #59323C;
 }
 
-/*hamburger styling here*/
+.main-nav {
+    padding: 0.1em;
+}
+
+.main-nav ul {
+    display: none;
+    padding: 0;
+    list-style: none;
+    clear: both;
+}
+
+.main-nav:hover ul {
+    display: block;
+}
 
 .lnr {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  color: white;
-}
-
-.lnr-menu {
-  color: white;
-  font-size: 40px;
-}
-
-.lnr:hover .header ul {
-  display: block;
+    color: white;
+    font-size: 40px;
+    float: right;
+    clear: both;
 }
