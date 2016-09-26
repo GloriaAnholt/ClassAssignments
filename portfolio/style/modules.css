@@ -1,0 +1,62 @@
+/* Header Styling */
+
+
+#gloria-pic {
+    display: none;
+}
+
+/*.header img {
+    display: block;
+    margin: auto;
+    padding: 10px;
+    border: 2px solid #BFAF80;
+    border-radius: 50%;
+}*/
+
+.header a {
+    color: #F2EEB3;
+    text-decoration: none;
+}
+
+.header ul {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: none;
+}
+
+.header li {
+    display: block;
+    padding: 10px;
+    text-align: center;
+}
+
+.header li:hover {
+    background-color: #59323C;
+}
+
+.headline {
+    text-align: center;
+    color: #59323C;
+}
+
+.main-nav {
+    padding: 0.1em;
+}
+
+.main-nav ul {
+    display: none;
+    padding: 0;
+    list-style: none;
+    clear: both;
+}
+
+.main-nav:hover ul {
+    display: block;
+}
+
+.lnr {
+    color: silver;
+    font-size: 40px;
+    float: left;
+    clear: both;
+}
