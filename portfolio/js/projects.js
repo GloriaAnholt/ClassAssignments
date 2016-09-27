@@ -61,6 +61,20 @@ Projects.fetchAll = function() {
         var savedData = sessionStorage.getItem('cachedProjects');
         Projects.loadAll(JSON.parse(savedData));
         projectsView.renderIndexPage();
+        
+    // How to get the headers only and check vs local
+        $.ajax({
+            method: 'HEAD',
+            url: '../data/projectList.json',
+            success: function(data, status, xhr) {
+                var eTag = xhr.getResponseHeader('eTag');
+                if (!localStorage.eTag || eTag != localStorage.eTag) {
+                    localStorage.eTag = eTag;
+                    // ajax call for json
+                }
+            }
+        })
+
     } else {
         $.ajax({
             method: 'GET',
@@ -72,7 +86,8 @@ Projects.fetchAll = function() {
             complete: function () {
                 $('#load').fadeOut().remove();
             },
-            success: function (data) {
+            success: function (data, status, xhr) {
+                // you don't need all three, but if you don't name them you can't use them
                 Projects.loadAll(data);
                 projectsView.renderIndexPage();
                 sessionStorage.setItem('cachedProjects', JSON.stringify(Projects.all));
