@@ -1,13 +1,16 @@
 // This app reads project data from the projectList.js file and populates the
 // index.html page using Handlebars.
 
-var projectArray = [];
+
 var filtersArray = [];
 
 function Projects (data) {
     for (var key in data)
         this[key] = data[key];
 }
+
+// Instead of using a global array, add the array to the class (not instances!)
+Projects.all = [];
 
 Projects.prototype.createHtml = function() {
     // This function grabs the template section of the page as a jQuery object,
@@ -33,30 +36,56 @@ function createFilters(obj) {
     return newHtml;
 }
 
-myProjects.sort(function(cur, next) {
-    // subtract the next from the current and return to the sort function,
-    // so it can sort things by date for you
-    // return ( (new Date(next.pubDate)) - (new Date(cur.pubDate)) );
-    // sort by ranking
-    return cur.ranking - next.ranking;
-});
+Projects.loadAll = function(data) {
+    data.sort(function (cur, next) {
+        /* subtract next from current and return to the sort function,
+        Sort by date: (new Date(next.pubDate)) - (new Date(cur.pubDate))
+        Sort by ranking: */
+        return (cur.ranking - next.ranking)
+    });
+    data.forEach(function (element) {
+        /* For each elem in project array, call constructor to make a new
+        object, update attributes, push to Project array */
+        Projects.all.push(new Projects(element));
 
-myProjects.forEach(function(element) {
-    // For each thing in the array of blog posts, use the constructor to make
-    // it into an object, have it's attributes updates, then push into the
-    // array which is passed to Handlebars to populate the page
-    projectArray.push(new Projects(element));
-
-    // In the loop, grab out the filter and make it into an object for Handlebars
-    var newObj = {};
-    newObj['category'] = element.category;
-    filtersArray.push(createFilters(newObj));
-});
+        // In the loop, grab out the filter and make it into an object for Handlebars
+        var newObj = {};
+        newObj['category'] = element.category;
+        filtersArray.push(createFilters(newObj));
+    });
+};
 
 
-projectArray.forEach(function(a) {
-    $('#projects').append(a.createHtml());
-});
+Projects.fetchAll = function() {
+    if (sessionStorage['cachedProjects']) {
+        var savedData = sessionStorage.getItem('cachedProjects');
+        Projects.loadAll(JSON.parse(savedData));
+        projectsView.renderIndexPage();
+    } else {
+        $.ajax({
+            method: 'GET',
+            url: '../data/projectList.json',
+            timeout: 2000,
+            beforeSend: function () {
+                $('#projects-body').append('<div id="load">Loading</div>');
+            },
+            complete: function () {
+                $('#load').fadeOut().remove();
+            },
+            success: function (data) {
+                Projects.loadAll(data);
+                projectsView.renderIndexPage();
+                sessionStorage.setItem('cachedProjects', JSON.stringify(Projects.all));
+            },
+            error: function (jqXHR, ajaxSettings, thrownError) {
+                $('#projects-body').append('<br id="error">Server returned a ' +
+                    '<b>' + jqXHR.status + ' ' + thrownError + '</b>' +
+                    ' error message. <br />Please try again later.</div>');
+            }
+        })
+    }
+};
+
 
 filtersArray.forEach(function(a) {
     $('#category-filter').append(a);

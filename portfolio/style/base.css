@@ -1,15 +1,10 @@
-
-/* Ordered lists should have dots. Ever. */
-ul {
-    list-style-type: none;
-}
-
 /* Body styling */
 body {
     font-family: "Open Sans", sans-serif;
     text-align: center;
 }
 
+/* Text and heading formatting */
 h1 {
     font-size: 1.5em;
 }
@@ -27,6 +22,11 @@ p {
     font-size: .9em;
 }
 
+/* Unordered lists shouldn't have dots. Ever. */
+ul {
+    list-style-type: none;
+}
+
 /* Link Styles */
 a, a:link, a:active {
     text-decoration: none;
@@ -36,7 +36,6 @@ a.read-more, a.read-more:link, a.read-more:active {
     text-decoration: none;
     color: #260126;
 }
-
 
 /* Media Query Stuff */
 @media only screen and (min-width: 450px) {

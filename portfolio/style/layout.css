@@ -16,6 +16,11 @@ Used the break-point design style presented in the TreeHouse Responsive Layouts 
     display: inline-block;
 }
 
+#hero-image {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 article {
     border: 5px solid #BFAF80;
     border-radius: 25px;

@@ -51,7 +51,17 @@ projectsView.handleCategoryFilter = function() {
     });
 };
 
+projectsView.renderIndexPage = function() {
+    Projects.all.forEach(function(a) {
+        $('#projects').append(a.createHtml());
+    });
+
+};
+
 // Call all of the functions to make them run!
 projectsView.handleTabs();
 projectsView.setTeasers();
 projectsView.handleCategoryFilter();
+projectsView.renderIndexPage();
+
+Projects.fetchAll();
