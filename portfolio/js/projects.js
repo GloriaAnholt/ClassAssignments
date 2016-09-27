@@ -57,26 +57,33 @@ Projects.loadAll = function(data) {
 
 
 Projects.fetchAll = function() {
-    $.ajax({
-        method: 'GET',
-        url: '../data/projectList.json',
-        timeout: 2000,
-        beforeSend: function() {
-            $('#projects-body').append('<div id="load">Loading</div>');
-        },
-        complete: function () {
-            $('#load').fadeOut().remove();
-        },
-        success: function(data) {
-            Projects.loadAll(data);
-            projectsView.renderIndexPage();
-        },
-        error: function(jqXHR, ajaxSettings, thrownError) {
-            $('#projects-body').append('<br id="error">Server returned a ' +
-                '<b>' + jqXHR.status + ' ' + thrownError + '</b>' +
-                ' error message. <br />Please try again later.</div>');
-        }
-    })
+    if (sessionStorage['cachedProjects']) {
+        var savedData = sessionStorage.getItem('cachedProjects');
+        Projects.loadAll(JSON.parse(savedData));
+        projectsView.renderIndexPage();
+    } else {
+        $.ajax({
+            method: 'GET',
+            url: '../data/projectList.json',
+            timeout: 2000,
+            beforeSend: function () {
+                $('#projects-body').append('<div id="load">Loading</div>');
+            },
+            complete: function () {
+                $('#load').fadeOut().remove();
+            },
+            success: function (data) {
+                Projects.loadAll(data);
+                projectsView.renderIndexPage();
+                sessionStorage.setItem('cachedProjects', JSON.stringify(Projects.all));
+            },
+            error: function (jqXHR, ajaxSettings, thrownError) {
+                $('#projects-body').append('<br id="error">Server returned a ' +
+                    '<b>' + jqXHR.status + ' ' + thrownError + '</b>' +
+                    ' error message. <br />Please try again later.</div>');
+            }
+        })
+    }
 };
 
 
