@@ -26,6 +26,7 @@ Filters.prototype.loadAll = function(data) {
         Projects.loadAll(JSON.parse(savedFilters));
         Filters.allFilters.renderFilters();
     } else {
+        console.log("Im in the filters loadAll else statement");
         data.reduce(function(accum, cur, i, array) {
             // set the accumulator to an object, makes an array with objects
             // only make filters out of things that make sense
@@ -65,17 +66,18 @@ Projects.prototype.createHtml = function() {
 
 
 Projects.loadAll = function(data) {
-    data.sort(function (cur, next) {
+
+    Projects.allProjects = data.sort(function (cur, next) {
         /* subtract next from current and return to the sort function,
         Sort by date: (new Date(next.pubDate)) - (new Date(cur.pubDate))
         Sort by ranking: */
         return (cur.ranking - next.ranking)
-    });
-    data.forEach(function (element) {
+    }).map(function (element) {
         /* For each elem in project array, call constructor to make a new
         object, update attributes, push to Project array */
-        Projects.allProjects.push(new Projects(element));
+        return new Projects(element);
     });
+    console.log('at the end of loadAll, allprojects is', Projects.allProjects);
 };
 
 
@@ -142,7 +144,6 @@ Projects.totalWordCount = function() {
     return Projects.statsBuilder().map(function(project) {
         return project.wordCount;
     }).reduce(function(prev, cur) {
-        console.log(prev, cur);
         return prev + cur;
     })
 };

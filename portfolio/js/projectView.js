@@ -70,7 +70,8 @@
         })
     };
 
-    Projects.fetchAll(projectsView.renderIndexPage(filtersView.renderFilters));
+    Projects.fetchAll(projectsView.renderIndexPage);
+    filtersView.renderFilters();
     module.projectsView = projectsView;
     module.filtersView = filtersView;
 })(window);
