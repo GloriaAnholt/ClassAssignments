@@ -108,9 +108,22 @@ filtersArray.forEach(function(a) {
 });
 
 
+Projects.titlesArray = function() {
+    return Projects.allProjects.map(function(project) {
+      return project.title;
+    })
+      .reduce(function(prev, cur) {
+        if (prev.indexOf(cur) === -1) {  // if it's not there
+          prev.push(cur);                // push it to the array
+        }
+        return prev;
+    }, []);
+};
+
+
 Projects.statsBuilder = function() {
     /* Builds an object for handlebars to display */
-    return Projects.allProjects.map(function(project) {
+    return Projects.titlesArray().map(function(project) {
         return {
             title: project.title,
             numWords: Projects.allProjects.filter(function(curProject) {
