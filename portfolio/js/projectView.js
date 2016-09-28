@@ -9,6 +9,7 @@
 (function(module) {
 
     var projectsView = {};
+    var filtersView = {};
 
     projectsView.handleTabs = function() {
         // Turn the main-nav into tabs, show projects page by default
@@ -39,7 +40,7 @@
     };
 
 
-    projectsView.handleCategoryFilter = function() {
+    projectsView.handleFilterBehavior = function() {
         // On change in drop down, display posts based on selection
         $('#category-filter').on('change', function() {
             console.log("here's the this val: ", $(this).val());
@@ -59,9 +60,17 @@
         });
         projectsView.handleTabs();
         projectsView.setTeasers();
-        projectsView.handleCategoryFilter();
+        projectsView.handleFilterBehavior();
         nextFun();
     };
 
+    filtersView.renderFilters = function() {
+        Filters.allFilters.forEach(function (a) {
+            $('#category-filter').append(a);
+        })
+    };
+
+    Projects.fetchAll(projectsView.renderIndexPage(filtersView.renderFilters));
     module.projectsView = projectsView;
+    module.filtersView = filtersView;
 })(window);

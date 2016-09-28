@@ -3,7 +3,8 @@
 
 
 function Filters() {
-    // make a thing.
+    for (var key in data)
+        this[key] = data[key];
 }
 
 Filters.allFilters = [];
@@ -14,13 +15,28 @@ Filters.prototype.createFilters = function() {
     var newHtml = template(this);
 
     return newHtml;
-}
+};
 
-Filters.renderFilters = function() {
-    Filters.allFilters.forEach(function(a) {
-    $('#category-filter').append(a);
-});
 
+
+Filters.prototype.loadAll = function(data) {
+    // In the loop, grab out the filter and make it into an object for Handlebars
+    if (sessionStorage['cachedFilters']) {
+        var savedFilters = sessionStorage.getItem('cachedFilters');
+        Projects.loadAll(JSON.parse(savedFilters));
+        Filters.allFilters.renderFilters();
+    } else {
+        data.reduce(function(accum, cur, i, array) {
+            // set the accumulator to an object, makes an array with objects
+            // only make filters out of things that make sense
+            accum[category] = cur.category;
+            accum[pubDate] = cur.pubDate;
+        }, {})
+            .forEach(function(element) {
+            Filters.allFilters.push(new Filters(element));
+        });
+    }
+};
 
 
 function Projects (data) {
@@ -59,11 +75,6 @@ Projects.loadAll = function(data) {
         /* For each elem in project array, call constructor to make a new
         object, update attributes, push to Project array */
         Projects.allProjects.push(new Projects(element));
-
-        // In the loop, grab out the filter and make it into an object for Handlebars
-        var newObj = {};
-        newObj['category'] = element.category;
-        Filters.allFilters.push(newObj.createFilters());
     });
 };
 
@@ -102,7 +113,8 @@ Projects.fetchAll = function(nextFun) {
                 // you don't need allProjects three, but if you don't name them you can't use them
                 Projects.loadAll(data);
                 projectsView.renderIndexPage(nextFun);
-                Filters.renderFilters();
+                Filters.loadAll(data);
+                filtersView.renderFilters();
                 sessionStorage.setItem('cachedProjects', JSON.stringify(Projects.allProjects));
             },
             error: function (jqXHR, ajaxSettings, thrownError) {
