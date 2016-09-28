@@ -2,7 +2,26 @@
 // index.html page using Handlebars.
 
 
-var filtersArray = [];
+function Filters() {
+    // make a thing.
+}
+
+Filters.allFilters = [];
+
+Filters.prototype.createFilters = function() {
+    var $sourceHtml = $('#filters-template').html();
+    var template = Handlebars.compile($sourceHtml);
+    var newHtml = template(this);
+
+    return newHtml;
+}
+
+Filters.renderFilters = function() {
+    Filters.allFilters.forEach(function(a) {
+    $('#category-filter').append(a);
+});
+
+
 
 function Projects (data) {
     for (var key in data)
@@ -28,13 +47,6 @@ Projects.prototype.createHtml = function() {
     return newHtml;
 };
 
-function createFilters(obj) {
-    var $sourceHtml = $('#filters-template').html();
-    var template = Handlebars.compile($sourceHtml);
-    var newHtml = template(obj);
-
-    return newHtml;
-}
 
 Projects.loadAll = function(data) {
     data.sort(function (cur, next) {
@@ -51,7 +63,7 @@ Projects.loadAll = function(data) {
         // In the loop, grab out the filter and make it into an object for Handlebars
         var newObj = {};
         newObj['category'] = element.category;
-        filtersArray.push(createFilters(newObj));
+        Filters.allFilters.push(newObj.createFilters());
     });
 };
 
@@ -90,6 +102,7 @@ Projects.fetchAll = function(nextFun) {
                 // you don't need allProjects three, but if you don't name them you can't use them
                 Projects.loadAll(data);
                 projectsView.renderIndexPage(nextFun);
+                Filters.renderFilters();
                 sessionStorage.setItem('cachedProjects', JSON.stringify(Projects.allProjects));
             },
             error: function (jqXHR, ajaxSettings, thrownError) {
@@ -101,12 +114,6 @@ Projects.fetchAll = function(nextFun) {
         })
     }
 };
-
-
-filtersArray.forEach(function(a) {
-    $('#category-filter').append(a);
-});
-
 
 
 Projects.statsBuilder = function() {

@@ -49,17 +49,21 @@
 .headline {
     text-align: center;
     color: #59323C;
+    padding-top: 30px;
 }
 
 .main-nav {
-    padding: 0.1em;
+    padding: 0;
+    margin: 0;
 }
 
 .main-nav ul {
     display: none;
     padding: 0;
     list-style: none;
-    clear: both;
+    position: absolute;
+    background-color: #260126;
+    width: 100%;
 }
 
 .main-nav:hover ul {
