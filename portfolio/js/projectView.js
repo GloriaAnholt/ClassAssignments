@@ -3,65 +3,65 @@
 // content.
 // In addition, it creates filterable content selectors.
 
-// Configure a view object, to hold all our functions for dynamic
+// Configure a view object, to hold allProjects our functions for dynamic
 // updates and project-related event handlers.
 
-var projectsView = {};
+(function(module) {
 
-projectsView.handleTabs = function() {
-    // Turn the main-nav into tabs, show projects page by default
-    $('.main-nav').on('click', 'li', function() {
-        var clicked = $(this).attr('data-content');
-        $('.tab-content').hide();
-        $('.tab-content').filter('#' + clicked).show();
-    });
-    $('.main-nav .tab:first').click();
-};
+    var projectsView = {};
 
-projectsView.setTeasers = function() {
-    // Limit project descriptions to first p unless link is clicked.
+    projectsView.handleTabs = function() {
+        // Turn the main-nav into tabs, show projects page by default
+        $('.main-nav').on('click', 'li', function() {
+            var clicked = $(this).attr('data-content');
+            $('.tab-content').hide();
+            $('.tab-content').filter('#' + clicked).show();
+        });
+        $('.main-nav .tab:first').click();
+    };
 
-    // this nth selector grabs everybody 2 after me
-    $('.projectBody p:nth-of-type(n+2)').hide();
+    projectsView.setTeasers = function() {
+        // Limit project descriptions to first p unless link is clicked.
 
-    $('#projects').on('click', '.read-more', function(e) {
-        e.preventDefault();
-        if ( $(this).text() === 'Read More' ) {
-            $(this).parent().find('p').show();
-            $(this).text('Hide');
-        } else {
-            $(this).parent().find('.projectBody p:nth-of-type(n+2)').hide();
-            $(this).text('Read More');
-        }
-    })
-};
+        // this nth selector grabs everybody 2 after me
+        $('.projectBody p:nth-of-type(n+2)').hide();
+
+        $('#projects').on('click', '.read-more', function(e) {
+            e.preventDefault();
+            if ( $(this).text() === 'Read More' ) {
+                $(this).parent().find('p').show();
+                $(this).text('Hide');
+            } else {
+                $(this).parent().find('.projectBody p:nth-of-type(n+2)').hide();
+                $(this).text('Read More');
+            }
+        })
+    };
 
 
-projectsView.handleCategoryFilter = function() {
-    // On change in drop down, display posts based on selection
-    $('#category-filter').on('change', function() {
-        console.log("here's the this val: ", $(this).val());
-        if ( $(this).val() ) {
-            var selection = $(this).val();
-            $('article').hide();
-            $('article').filter('[data-category="' + selection + '"]').fadeIn('slow');
-        } else {
-            $('article').not('.projectsTemplate').hide().fadeIn('slow');
-        }
-    });
-};
+    projectsView.handleCategoryFilter = function() {
+        // On change in drop down, display posts based on selection
+        $('#category-filter').on('change', function() {
+            console.log("here's the this val: ", $(this).val());
+            if ( $(this).val() ) {
+                var selection = $(this).val();
+                $('article').hide();
+                $('article').filter('[data-category="' + selection + '"]').fadeIn('slow');
+            } else {
+                $('article').not('.projectsTemplate').hide().fadeIn('slow');
+            }
+        });
+    };
 
-projectsView.renderIndexPage = function() {
-    Projects.all.forEach(function(a) {
-        $('#projects').append(a.createHtml());
-    });
+    projectsView.renderIndexPage = function(nextFun) {
+        Projects.allProjects.forEach(function(a) {
+            $('#projects').append(a.createHtml());
+        });
+        projectsView.handleTabs();
+        projectsView.setTeasers();
+        projectsView.handleCategoryFilter();
+        nextFun();
+    };
 
-};
-
-// Call all of the functions to make them run!
-projectsView.handleTabs();
-projectsView.setTeasers();
-projectsView.handleCategoryFilter();
-projectsView.renderIndexPage();
-
-Projects.fetchAll();
+    module.projectsView = projectsView;
+})(window);

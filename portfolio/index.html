@@ -27,6 +27,11 @@
         <option value="{{category}}">{{category}}</option>
     </script>
 
+    <!-- Use Handlebars to set up the stats info -->
+    <script id="stats-template" type="text/x-handlebars-template">
+        <li><strong>{{title}}</strong>: {{wordCount}} words written</li>
+    </script>
+
 </head>
 <body>
     <header class="header">
@@ -37,6 +42,7 @@
             <ul>
                 <li class="tab" data-content="projects"><a href="#">Portfolio</a></li>
                 <li class="tab" data-content="resume"><a href="#">Resume</a></li>
+                <li class="tab" data-content="stats" ><a href="#">Stats</a></li>
                 <li class="tab" data-content="about" ><a href="#">About</a></li>
                 <li><a href="http://github.com/GloriaAnholt" target="_blank" >Github</a></li>
                 <li><a href="https://twitter.com/totallygloria" target="_blank" >Twitter</a></li>
@@ -74,6 +80,11 @@
         <p>I spend most of my unplugged time in the garden, wood working, or doing crazy home improvement projects.</p>
     </section>
 
+    <section id="stats" class="tab-content">
+        <h2>Some stats about this page</h2>
+        <p>We're practicing functional programming, here are some stats about this page</p>
+    </section>
+
     <!-- Page footer info -->
     <footer>
         <p>&copy; Gloria Anholt, 2016</p>
@@ -85,5 +96,6 @@
     <script src="js/projectList.js"></script>
     <script src="js/projects.js"></script>
     <script src="js/projectView.js"></script>
+    <script src="js/projectStats.js"></script>
 </body>
 </html>

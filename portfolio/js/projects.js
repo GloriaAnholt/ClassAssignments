@@ -10,7 +10,7 @@ function Projects (data) {
 }
 
 // Instead of using a global array, add the array to the class (not instances!)
-Projects.all = [];
+Projects.allProjects = [];
 
 Projects.prototype.createHtml = function() {
     // This function grabs the template section of the page as a jQuery object,
@@ -46,7 +46,7 @@ Projects.loadAll = function(data) {
     data.forEach(function (element) {
         /* For each elem in project array, call constructor to make a new
         object, update attributes, push to Project array */
-        Projects.all.push(new Projects(element));
+        Projects.allProjects.push(new Projects(element));
 
         // In the loop, grab out the filter and make it into an object for Handlebars
         var newObj = {};
@@ -56,13 +56,13 @@ Projects.loadAll = function(data) {
 };
 
 
-Projects.fetchAll = function() {
+Projects.fetchAll = function(nextFun) {
     if (sessionStorage['cachedProjects']) {
         var savedData = sessionStorage.getItem('cachedProjects');
         Projects.loadAll(JSON.parse(savedData));
-        projectsView.renderIndexPage();
+        projectsView.renderIndexPage(nextFun);
         
-    // How to get the headers only and check vs local
+/*    // How to get the headers only and check vs local
         $.ajax({
             method: 'HEAD',
             url: '../data/projectList.json',
@@ -73,7 +73,7 @@ Projects.fetchAll = function() {
                     // ajax call for json
                 }
             }
-        })
+        })*/
 
     } else {
         $.ajax({
@@ -87,15 +87,16 @@ Projects.fetchAll = function() {
                 $('#load').fadeOut().remove();
             },
             success: function (data, status, xhr) {
-                // you don't need all three, but if you don't name them you can't use them
+                // you don't need allProjects three, but if you don't name them you can't use them
                 Projects.loadAll(data);
-                projectsView.renderIndexPage();
-                sessionStorage.setItem('cachedProjects', JSON.stringify(Projects.all));
+                projectsView.renderIndexPage(nextFun);
+                sessionStorage.setItem('cachedProjects', JSON.stringify(Projects.allProjects));
             },
             error: function (jqXHR, ajaxSettings, thrownError) {
                 $('#projects-body').append('<br id="error">Server returned a ' +
                     '<b>' + jqXHR.status + ' ' + thrownError + '</b>' +
                     ' error message. <br />Please try again later.</div>');
+                nextFun();
             }
         })
     }
@@ -105,3 +106,20 @@ Projects.fetchAll = function() {
 filtersArray.forEach(function(a) {
     $('#category-filter').append(a);
 });
+
+
+Projects.statsBuilder = function() {
+    /* Builds an object for handlebars to display */
+    return Projects.allProjects.map(function(project) {
+        return {
+            title: project.title,
+            numWords: Projects.allProjects.filter(function(curProject) {
+                return curProject.title === project.title;
+            }).map(function (curArticle) {
+                return curProject.body.match(/\w+/g).length;
+            }).reduce(function (acc, cur) {
+                return acc + cur;
+            }, 0)
+        }
+    });
+};
