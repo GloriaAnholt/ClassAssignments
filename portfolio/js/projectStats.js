@@ -5,10 +5,10 @@ projectsView.initStatsPage = function() {
     var template = Handlebars.compile($('#stats-template').html());
 
     Projects.statsBuilder().forEach(function(project) {
-        $('#stats').append(template(project));
+        $('#stats article').append(template(project));
     })
-    $('#stats').append('<li>The cumulative projects have ' + Projects.totalWordCount() +
-        ' total words.');
+    $('#stats article').append('<p>The cumulative projects have ' + Projects.totalWordCount() +
+        ' total words.</p>');
 };
 
 Projects.fetchAll(projectsView.initStatsPage);
