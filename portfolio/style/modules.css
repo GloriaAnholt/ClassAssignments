@@ -25,27 +25,6 @@
     border-radius: 50%;
 }
 
-.header a {
-    color: #F2EEB3;
-    text-decoration: none;
-}
-
-.header ul {
-    margin: 0 !important;
-    padding: 0 !important;
-    display: none;
-}
-
-.header li {
-    display: block;
-    padding: 10px;
-    text-align: center;
-}
-
-.header li:hover {
-    background-color: #59323C;
-}
-
 .headline {
     text-align: center;
     color: #59323C;
@@ -60,6 +39,7 @@
 .main-nav ul {
     display: none;
     padding: 0;
+    margin: 0;
     list-style: none;
     position: absolute;
     background-color: #260126;
@@ -70,8 +50,162 @@
     display: block;
 }
 
+.main-nav li {
+    display: block;
+    padding: 10px;
+    text-align: center;
+}
+
+.main-nav li:hover {
+    background-color: #59323C;
+}
+
+.main-nav a {
+    color: #F2EEB3;
+    text-decoration: none;
+}
+
 .lnr {
     color: silver;
     font-size: 40px;
     float: left;
+}
+
+
+/* Media Query Stuff */
+@media only screen and (min-width: 450px) {
+
+    h1 {
+        font-size: 1.7em;
+    }
+
+    h2 {
+        color: #260126;
+        font-size: 1.3em;
+    }
+
+    .main-nav ul {
+        display: block;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        position: absolute;
+        background-color: #260126;
+        width: 100%;
+    }
+
+    .main-nav ul li {
+        display: inline-block;
+        padding: 6px;
+        text-align: center;
+        font-size: .85em;
+    }
+
+    .lnr {
+        display: none;
+    }
+}
+
+/* Goal is to have this display two columns */
+@media only screen and (min-width: 640px) {
+
+    h1 {
+        font-size: 1.9em;
+    }
+
+    h2 {
+        color: #260126;
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    section.projects {
+        width: 100%;
+        text-align: center;
+    }
+
+    article {
+        width: 80%;
+        margin: 0 auto;
+        display: inline-block;
+    }
+
+    .main-nav ul {
+        display: block;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        position: absolute;
+        background-color: #260126;
+        width: 100%;
+    }
+
+    .main-nav ul li {
+        display: inline-block;
+        padding: 10px 12px 10px 12px;
+        text-align: center;
+        font-size: 1em;
+    }
+
+    .lnr {
+        display: none;
+    }
+
+}
+
+/* Goal is to have this display two+ columns */
+@media only screen and (min-width: 900px) {
+
+    h1 {
+        font-size: 1.9em;
+    }
+
+    h2 {
+        color: #260126;
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    section.projects {
+        width: 100%;
+        text-align: center;
+    }
+
+    article {
+        width: 40%;
+        margin: 0 auto;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .main-nav ul {
+        display: block;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        position: absolute;
+        background-color: #260126;
+        width: 100%;
+    }
+
+    .main-nav ul li {
+        display: inline-block;
+        padding: 10px 25px 10px 25px;
+        text-align: center;
+    }
+
+    .header img {
+        width: 200px;
+        height: auto;
+    }
+
+    .lnr {
+        display: none;
+    }
 }
