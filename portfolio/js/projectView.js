@@ -43,10 +43,9 @@
     projectsView.handleFilterBehavior = function() {
         // On change in drop down, display posts based on selection
         $('#category-filter').on('change', function() {
-            console.log("here's the this val: ", $(this).val());
             if ( $(this).val() ) {
                 var selection = $(this).val();
-                $('article').hide();
+                $('article').fadeOut('slow');
                 $('article').filter('[data-category="' + selection + '"]').fadeIn('slow');
             } else {
                 $('article').not('.projectsTemplate').hide().fadeIn('slow');
@@ -55,6 +54,7 @@
     };
 
     projectsView.renderIndexPage = function() {
+        console.log("inside render, projects is ", Projects.allProjects);
         Projects.allProjects.forEach(function(a) {
             $('#projects').append(a.createHtml());
         });

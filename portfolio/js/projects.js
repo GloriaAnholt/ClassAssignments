@@ -2,6 +2,8 @@
 // index.html page using Handlebars.
 
 
+var globalCounter = 0;
+
 function Filters(data) {
     for (var key in data)
         this[key] = data[key];
@@ -26,8 +28,8 @@ Filters.loadAll = function() {
         filtersView.renderFilters();
     } else {
         Projects.allProjects.map(function(cur, i, array) {
-            // set the accumulator to an object, makes an array with objects
-            // only make filters out of things that make sense
+            // use map to return an object built out of the parts I want
+            // couldn't get the two templates to play nice, leaving this for now
             return { category: cur.category, pubDate: cur.pubDate };
         }).forEach(function(element) {
             Filters.allFilters.push(new Filters(element));
@@ -56,9 +58,8 @@ Projects.prototype.createHtml = function() {
         'Published on: ' + this.pubDate + ", about " +
         Math.floor(parseInt(new Date() - new Date(this.pubDate))/3600/24/1000) +
         ' days ago.' : '(draft)';
-    var newHtml = template(this);
 
-    return newHtml;
+    return template(this);
 };
 
 
@@ -78,10 +79,12 @@ Projects.loadAll = function(data) {
 
 
 Projects.fetchAll = function(nextFun) {
+    globalCounter++;
+    console.log(globalCounter);
     if (sessionStorage['cachedProjects']) {
         var savedData = sessionStorage.getItem('cachedProjects');
         Projects.loadAll(JSON.parse(savedData));
-        projectsView.renderIndexPage(nextFun);
+        projectsView.renderIndexPage();
         
 /*    // How to get the headers only and check vs local
         $.ajax({
@@ -108,10 +111,8 @@ Projects.fetchAll = function(nextFun) {
                 // you don't need allProjects three, but if you don't name them you can't use them
                 $('#load').fadeOut().remove();
                 Projects.loadAll(data);
-                projectsView.renderIndexPage(nextFun);
-/*                Filters.loadAll(data);
-                filtersView.renderFilters();*/
                 sessionStorage.setItem('cachedProjects', JSON.stringify(Projects.allProjects));
+                nextFun(); // projectsView.renderIndexPage();
             },
             error: function (jqXHR, ajaxSettings, thrownError) {
                 $('#load').fadeOut().remove();
