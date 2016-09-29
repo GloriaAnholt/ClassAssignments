@@ -2,7 +2,7 @@
 // index.html page using Handlebars.
 
 
-function Filters() {
+function Filters(data) {
     for (var key in data)
         this[key] = data[key];
 }
@@ -18,24 +18,21 @@ Filters.prototype.createFilters = function() {
 };
 
 
-
-Filters.prototype.loadAll = function(data) {
+Filters.loadAll = function() {
     // In the loop, grab out the filter and make it into an object for Handlebars
     if (sessionStorage['cachedFilters']) {
         var savedFilters = sessionStorage.getItem('cachedFilters');
         Projects.loadAll(JSON.parse(savedFilters));
-        Filters.allFilters.renderFilters();
+        filtersView.renderFilters();
     } else {
-        console.log("Im in the filters loadAll else statement");
-        data.reduce(function(accum, cur, i, array) {
+        Projects.allProjects.map(function(cur, i, array) {
             // set the accumulator to an object, makes an array with objects
             // only make filters out of things that make sense
-            accum[category] = cur.category;
-            accum[pubDate] = cur.pubDate;
-        }, {})
-            .forEach(function(element) {
+            return { category: cur.category, pubDate: cur.pubDate };
+        }).forEach(function(element) {
             Filters.allFilters.push(new Filters(element));
         });
+        filtersView.renderFilters();
     }
 };
 
@@ -73,11 +70,10 @@ Projects.loadAll = function(data) {
         Sort by ranking: */
         return (cur.ranking - next.ranking)
     }).map(function (element) {
-        /* For each elem in project array, call constructor to make a new
-        object, update attributes, push to Project array */
+        /* For each elem in the JSON data, use map to call constructor and update
+         the Projects.allProjects array */
         return new Projects(element);
     });
-    console.log('at the end of loadAll, allprojects is', Projects.allProjects);
 };
 
 
@@ -108,18 +104,17 @@ Projects.fetchAll = function(nextFun) {
             beforeSend: function () {
                 $('#projects-body').append('<div id="load">Loading</div>');
             },
-            complete: function () {
-                $('#load').fadeOut().remove();
-            },
             success: function (data, status, xhr) {
                 // you don't need allProjects three, but if you don't name them you can't use them
+                $('#load').fadeOut().remove();
                 Projects.loadAll(data);
                 projectsView.renderIndexPage(nextFun);
-                Filters.loadAll(data);
-                filtersView.renderFilters();
+/*                Filters.loadAll(data);
+                filtersView.renderFilters();*/
                 sessionStorage.setItem('cachedProjects', JSON.stringify(Projects.allProjects));
             },
             error: function (jqXHR, ajaxSettings, thrownError) {
+                $('#load').fadeOut().remove();
                 $('#projects-body').append('<br id="error">Server returned a ' +
                     '<b>' + jqXHR.status + ' ' + thrownError + '</b>' +
                     ' error message. <br />Please try again later.</div>');

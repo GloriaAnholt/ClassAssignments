@@ -54,24 +54,26 @@
         });
     };
 
-    projectsView.renderIndexPage = function(nextFun) {
+    projectsView.renderIndexPage = function() {
         Projects.allProjects.forEach(function(a) {
             $('#projects').append(a.createHtml());
         });
         projectsView.handleTabs();
         projectsView.setTeasers();
         projectsView.handleFilterBehavior();
-        nextFun();
     };
 
     filtersView.renderFilters = function() {
         Filters.allFilters.forEach(function (a) {
-            $('#category-filter').append(a);
+            $('#category-filter').append(a.createFilters());
         })
     };
 
-    Projects.fetchAll(projectsView.renderIndexPage);
-    filtersView.renderFilters();
+
+
     module.projectsView = projectsView;
     module.filtersView = filtersView;
+    Projects.fetchAll(projectsView.renderIndexPage());
+    Filters.loadAll();
+
 })(window);
