@@ -2,8 +2,6 @@
 // index.html page using Handlebars.
 
 
-var globalCounter = 0;
-
 function Filters(data) {
     for (var key in data)
         this[key] = data[key];
@@ -63,6 +61,32 @@ Projects.prototype.createHtml = function() {
 };
 
 
+Projects.getUpdatedProjects = function(nextFun) {
+    $.ajax({
+        method: 'GET',
+        url: '../data/projectList.json',
+        timeout: 2000,
+        beforeSend: function () {
+            $('#projects-body').append('<div id="load">Loading</div>');
+        },
+        success: function (data, status, xhr) {
+            // you don't need allProjects three, but if you don't name them you can't use them
+            $('#load').fadeOut().remove();
+            sessionStorage.setItem('cachedProjects', JSON.stringify(Projects.allProjects));
+            Projects.loadAll(data);
+            nextFun(); // projectsView.renderIndexPage();
+        },
+        error: function (jqXHR, ajaxSettings, thrownError) {
+            $('#load').fadeOut().remove();
+            $('#projects-body').append('<br id="error">Server returned a ' +
+                '<b>' + jqXHR.status + ' ' + thrownError + '</b>' +
+                ' error message. <br />Please try again later.</div>');
+            nextFun();
+        }
+    })
+};
+
+
 Projects.loadAll = function(data) {
 
     Projects.allProjects = data.sort(function (cur, next) {
@@ -79,14 +103,9 @@ Projects.loadAll = function(data) {
 
 
 Projects.fetchAll = function(nextFun) {
-    globalCounter++;
-    console.log(globalCounter);
-    if (sessionStorage['cachedProjects']) {
-        var savedData = sessionStorage.getItem('cachedProjects');
-        Projects.loadAll(JSON.parse(savedData));
-        projectsView.renderIndexPage();
-        
-/*    // How to get the headers only and check vs local
+    console.log('in fetch all, nextfun is', typeof nextFun, nextFun);
+    if (sessionStorage.cachedProjects) {
+    // How to get the headers only and check vs local
         $.ajax({
             method: 'HEAD',
             url: '../data/projectList.json',
@@ -95,33 +114,16 @@ Projects.fetchAll = function(nextFun) {
                 if (!localStorage.eTag || eTag != localStorage.eTag) {
                     localStorage.eTag = eTag;
                     // ajax call for json
+                    Projects.getUpdatedProjects(nextFun());
+                } else {
+                    Projects.loadAll(JSON.parse(sessionStorage.cachedProjects));
+                    console.log('in else, nextfun is', typeof nextFun, nextFun);
+                    nextFun();  // calls renderIndexPage
                 }
-            }
-        })*/
-
+            }  // close success
+        }); // close ajax
     } else {
-        $.ajax({
-            method: 'GET',
-            url: '../data/projectList.json',
-            timeout: 2000,
-            beforeSend: function () {
-                $('#projects-body').append('<div id="load">Loading</div>');
-            },
-            success: function (data, status, xhr) {
-                // you don't need allProjects three, but if you don't name them you can't use them
-                $('#load').fadeOut().remove();
-                Projects.loadAll(data);
-                sessionStorage.setItem('cachedProjects', JSON.stringify(Projects.allProjects));
-                nextFun(); // projectsView.renderIndexPage();
-            },
-            error: function (jqXHR, ajaxSettings, thrownError) {
-                $('#load').fadeOut().remove();
-                $('#projects-body').append('<br id="error">Server returned a ' +
-                    '<b>' + jqXHR.status + ' ' + thrownError + '</b>' +
-                    ' error message. <br />Please try again later.</div>');
-                nextFun();
-            }
-        })
+        Projects.getUpdatedProjects(nextFun());
     }
 };
 

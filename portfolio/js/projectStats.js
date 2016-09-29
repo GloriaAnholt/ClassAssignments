@@ -11,4 +11,4 @@ projectsView.initStatsPage = function() {
         ' total words.</p>');
 };
 
-Projects.fetchAll(projectsView.initStatsPage);
+//Projects.fetchAll(projectsView.initStatsPage);
