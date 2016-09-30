@@ -16,9 +16,8 @@ Filters.prototype.createFilters = function() {
     globalCallOrder.push('Prototype createFilters called');
     var $sourceHtml = $('#filters-template').html();
     var template = Handlebars.compile($sourceHtml);
-    var newHtml = template(this);
 
-    return newHtml;
+    return template(this);
 };
 
 
@@ -26,18 +25,21 @@ Filters.loadAll = function() {
     globalCallOrder.push('Filters.loadAll called');
     // In the loop, grab out the filter and make it into an object for Handlebars
     if (localStorage.cachedFilters) {
-        var savedFilters = localStorage.getItem('cachedFilters');
-        //Projects.loadAll(JSON.parse(savedFilters));
-        filtersView.renderFilters();
+        Filters.allFilters = localStorage.getItem('cachedFilters');
+        filtersView.renderFilters()
     } else {
-        Projects.allProjects.map(function(cur, i, array) {
+        console.log('im in the filters loadAll');
+        var temp = Projects.allProjects.map(function(cur, i, array) {
             // use map to return an object built out of the parts I want
             // couldn't get the two templates to play nice, leaving this for now
             return { category: cur.category, pubDate: cur.pubDate };
-        }).forEach(function(element) {
-            Filters.allFilters.push(new Filters(element));
         });
-        filtersView.renderFilters();
+        console.log('results of the map are', temp);
+        /*    .forEach(function(element) {
+            Filters.allFilters.push(new Filters(element));
+        });*/
+        localStorage.setItem('cachedFilters', JSON.stringify(Filters.allFilters));
+        filtersView.renderFilters()
     }
 };
 
@@ -80,7 +82,6 @@ Projects.getUpdatedProjects = function() {
         success: function (data, status, xhr) {
             // you don't need allProjects three, but if you don't name them you can't use them
             $('#load').fadeOut().remove();
-            console.log('im in getUpdatedProjects successful ajax', data);
             localStorage.setItem('cachedProjects', JSON.stringify(data));
             Projects.loadAll(data);
             projectsView.renderIndexPage()
@@ -99,7 +100,6 @@ Projects.getUpdatedProjects = function() {
 Projects.loadAll = function(data) {
     globalCallOrder.push('Projects.loadAll called');
     var newdata = data.sort(function (cur, next) { return (cur.ranking - next.ranking) });
-    console.log('in Projects.loadAll, data ', newdata);
     Projects.allProjects = data.sort(function (cur, next) {
         /* subtract next from current and return to the sort function,
         Sort by date: (new Date(next.pubDate)) - (new Date(cur.pubDate))
