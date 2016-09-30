@@ -1,8 +1,11 @@
 // This app reads project data from the projectList.js file and populates the
 // index.html page using Handlebars.
 
+var globalCallOrder = [];
+
 
 function Filters(data) {
+    globalCallOrder.push('Filters called');
     for (var key in data)
         this[key] = data[key];
 }
@@ -10,6 +13,7 @@ function Filters(data) {
 Filters.allFilters = [];
 
 Filters.prototype.createFilters = function() {
+    globalCallOrder.push('Prototype createFilters called');
     var $sourceHtml = $('#filters-template').html();
     var template = Handlebars.compile($sourceHtml);
     var newHtml = template(this);
@@ -19,10 +23,11 @@ Filters.prototype.createFilters = function() {
 
 
 Filters.loadAll = function() {
+    globalCallOrder.push('Filters.loadAll called');
     // In the loop, grab out the filter and make it into an object for Handlebars
-    if (sessionStorage['cachedFilters']) {
-        var savedFilters = sessionStorage.getItem('cachedFilters');
-        Projects.loadAll(JSON.parse(savedFilters));
+    if (localStorage.cachedFilters) {
+        var savedFilters = localStorage.getItem('cachedFilters');
+        //Projects.loadAll(JSON.parse(savedFilters));
         filtersView.renderFilters();
     } else {
         Projects.allProjects.map(function(cur, i, array) {
@@ -38,6 +43,7 @@ Filters.loadAll = function() {
 
 
 function Projects (data) {
+    globalCallOrder.push('Projects called');
     for (var key in data)
         this[key] = data[key];
 }
@@ -46,6 +52,7 @@ function Projects (data) {
 Projects.allProjects = [];
 
 Projects.prototype.createHtml = function() {
+    globalCallOrder.push('Projects.prototype.createHtml called');
     // This function grabs the template section of the page as a jQuery object,
     // and uses Handlebars to populates its values with the details from a
     // the projectList array
@@ -61,7 +68,8 @@ Projects.prototype.createHtml = function() {
 };
 
 
-Projects.getUpdatedProjects = function(nextFun) {
+Projects.getUpdatedProjects = function() {
+    globalCallOrder.push('getUpdatedProjects called');
     $.ajax({
         method: 'GET',
         url: '../data/projectList.json',
@@ -72,23 +80,26 @@ Projects.getUpdatedProjects = function(nextFun) {
         success: function (data, status, xhr) {
             // you don't need allProjects three, but if you don't name them you can't use them
             $('#load').fadeOut().remove();
-            sessionStorage.setItem('cachedProjects', JSON.stringify(Projects.allProjects));
+            console.log('im in getUpdatedProjects successful ajax', data);
+            localStorage.setItem('cachedProjects', JSON.stringify(data));
             Projects.loadAll(data);
-            nextFun(); // projectsView.renderIndexPage();
+            projectsView.renderIndexPage()
         },
         error: function (jqXHR, ajaxSettings, thrownError) {
             $('#load').fadeOut().remove();
             $('#projects-body').append('<br id="error">Server returned a ' +
                 '<b>' + jqXHR.status + ' ' + thrownError + '</b>' +
                 ' error message. <br />Please try again later.</div>');
-            nextFun();
+            projectsView.renderIndexPage()
         }
     })
 };
 
 
 Projects.loadAll = function(data) {
-
+    globalCallOrder.push('Projects.loadAll called');
+    var newdata = data.sort(function (cur, next) { return (cur.ranking - next.ranking) });
+    console.log('in Projects.loadAll, data ', newdata);
     Projects.allProjects = data.sort(function (cur, next) {
         /* subtract next from current and return to the sort function,
         Sort by date: (new Date(next.pubDate)) - (new Date(cur.pubDate))
@@ -102,9 +113,9 @@ Projects.loadAll = function(data) {
 };
 
 
-Projects.fetchAll = function(nextFun) {
-    console.log('in fetch all, nextfun is', typeof nextFun, nextFun);
-    if (sessionStorage.cachedProjects) {
+Projects.fetchAll = function() {
+    globalCallOrder.push('fetchAll called');
+    if (localStorage.cachedProjects) {
     // How to get the headers only and check vs local
         $.ajax({
             method: 'HEAD',
@@ -114,16 +125,15 @@ Projects.fetchAll = function(nextFun) {
                 if (!localStorage.eTag || eTag != localStorage.eTag) {
                     localStorage.eTag = eTag;
                     // ajax call for json
-                    Projects.getUpdatedProjects(nextFun());
+                    Projects.getUpdatedProjects();
                 } else {
-                    Projects.loadAll(JSON.parse(sessionStorage.cachedProjects));
-                    console.log('in else, nextfun is', typeof nextFun, nextFun);
-                    nextFun();  // calls renderIndexPage
+                    Projects.loadAll(JSON.parse(localStorage.cachedProjects));
+                    projectsView.renderIndexPage()
                 }
             }  // close success
         }); // close ajax
     } else {
-        Projects.getUpdatedProjects(nextFun());
+        Projects.getUpdatedProjects();
     }
 };
 
