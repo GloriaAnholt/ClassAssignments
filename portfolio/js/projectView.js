@@ -66,7 +66,7 @@ projectsView.renderIndexPage = function() {
     projectsView.handleTabs();
     projectsView.setTeasers();
     projectsView.handleFilterBehavior();
-    //projectsView.initStatsPage();
+    projectsView.initStatsPage();
     Filters.loadAll();
 };
 
