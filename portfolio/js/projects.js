@@ -123,42 +123,30 @@ Projects.totalWordCount = function() {
 };
 
 
+function Filters () {}
+Filters.filtersList = [];
 
-function Filters(data) {
-    globalCallOrder.push('Filters called');
-    for (var key in data)
-        this[key] = data[key];
-}
-
-Filters.allFilters = [];
-
-Filters.prototype.createFilters = function() {
-    globalCallOrder.push('Prototype createFilters called');
+Filters.createTemplatedFilter = function(obj) {
+    globalCallOrder.push('Prototype createTemplatedFilter called');
     var $sourceHtml = $('#filters-template').html();
     var template = Handlebars.compile($sourceHtml);
 
-    return template(this);
+    return template(obj);
 };
-
 
 Filters.loadAll = function() {
     globalCallOrder.push('Filters.loadAll called');
     // In the loop, grab out the filter and make it into an object for Handlebars
     if (localStorage.cachedFilters) {
-        Filters.allFilters = localStorage.getItem('cachedFilters');
-        filtersView.renderFilters()
+        Filters.filtersList = JSON.parse(localStorage.getItem('cachedFilters'));
+        filtersView.renderFilters();
     } else {
-        console.log('im in the filters loadAll');
-        var temp = Projects.allProjects.map(function(cur, i, array) {
+        Filters.filtersList = Projects.allProjects.map(function(cur, i, array) {
             // use map to return an object built out of the parts I want
             // couldn't get the two templates to play nice, leaving this for now
             return { category: cur.category, pubDate: cur.pubDate };
         });
-        console.log('results of the map are', temp);
-        /*    .forEach(function(element) {
-         Filters.allFilters.push(new Filters(element));
-         });*/
-        localStorage.setItem('cachedFilters', JSON.stringify(Filters.allFilters));
-        filtersView.renderFilters()
+        localStorage.setItem('cachedFilters', JSON.stringify(Filters.filtersList));
+        filtersView.renderFilters();
     }
 };

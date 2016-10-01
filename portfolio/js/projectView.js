@@ -53,12 +53,6 @@ projectsView.handleFilterBehavior = function() {
     });
 };
 
-filtersView.renderFilters = function() {
-    Filters.allFilters.forEach(function(a) {
-        $('#category-filter').append(a.createFilters());
-    })
-};
-
 projectsView.renderIndexPage = function() {
     Projects.allProjects.forEach(function(a) {
         $('#projects').append(a.createHtml());
@@ -70,6 +64,12 @@ projectsView.renderIndexPage = function() {
     Filters.loadAll();
 };
 
+filtersView.renderFilters = function() {
+    Filters.filtersList.forEach(function(obj) {
+        console.log(obj);
+        $('#category-filter').append(Filters.createTemplatedFilter(obj));
+    })
+};
 
 Projects.fetchAll();
 
