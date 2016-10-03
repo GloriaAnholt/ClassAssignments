@@ -35,7 +35,7 @@ projectsView.handleFilterBehavior = function() {
     $('#category-filter').on('change', function() {
         if ( $(this).val() ) {
             var selection = $(this).val();
-            $('article').fadeOut('slow');
+            $('article').hide();
             $('article').filter('[data-category="' + selection + '"]').fadeIn('slow');
         } else {
             $('article').not('.projectsTemplate').hide().fadeIn('slow');
