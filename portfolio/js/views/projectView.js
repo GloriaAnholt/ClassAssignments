@@ -11,7 +11,7 @@
 var projectsView = {};
 var filtersView = {};
 
-projectsView.handleTabs = function() {
+/*projectsView.handleTabs = function() {
     // Turn the main-nav into tabs, show projects page by default
     $('.main-nav').on('click', 'li', function() {
         var clicked = $(this).attr('data-content');
@@ -19,7 +19,7 @@ projectsView.handleTabs = function() {
         $('.tab-content').filter('#' + clicked).show();
     });
     $('.main-nav .tab:first').click();
-};
+};*/
 
 projectsView.setTeasers = function() {
     // Limit project descriptions to first p unless link is clicked.
@@ -57,7 +57,7 @@ projectsView.renderIndexPage = function() {
     Projects.allProjects.forEach(function(a) {
         $('#projects').append(a.createHtml());
     });
-    projectsView.handleTabs();
+   // projectsView.handleTabs();
     projectsView.setTeasers();
     projectsView.handleFilterBehavior();
     projectsView.initStatsPage();
