@@ -11,16 +11,6 @@
 var projectsView = {};
 var filtersView = {};
 
-/*projectsView.handleTabs = function() {
-    // Turn the main-nav into tabs, show projects page by default
-    $('.main-nav').on('click', 'li', function() {
-        var clicked = $(this).attr('data-content');
-        $('.tab-content').hide();
-        $('.tab-content').filter('#' + clicked).show();
-    });
-    $('.main-nav .tab:first').click();
-};*/
-
 projectsView.setTeasers = function() {
     // Limit project descriptions to first p unless link is clicked.
 
@@ -52,6 +42,19 @@ projectsView.handleFilterBehavior = function() {
         }
     });
 };
+
+// Here are some stats about the projects
+projectsView.initStatsPage = function() {
+
+    var template = Handlebars.compile($('#stats-template').html());
+
+    Projects.statsBuilder().forEach(function(project) {
+        $('#stats article').append(template(project));
+    })
+    $('#stats article').append('<p>The cumulative projects have ' + Projects.totalWordCount() +
+        ' total words.</p>');
+};
+
 
 projectsView.renderIndexPage = function() {
     Projects.allProjects.forEach(function(a) {
