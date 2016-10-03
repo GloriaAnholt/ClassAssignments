@@ -4,7 +4,7 @@
 
     portfolioController.showPortfolio = function() {
         $('.tab-content').hide();
-        $('.tab-content').filter('#projects').show();
+        $('.tab-content').filter('#projects').fadeIn('slow');
     };
     module.portfolioController = portfolioController;
 })(window);

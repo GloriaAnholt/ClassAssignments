@@ -4,7 +4,7 @@
 
     resumeController.showResume = function() {
         $('.tab-content').hide();
-        $('.tab-content').filter('#resume').show();
+        $('.tab-content').filter('#resume').fadeIn('slow');
     };
     module.resumeController = resumeController;
 })(window);
