@@ -69,7 +69,6 @@ projectsView.renderIndexPage = function() {
 
 filtersView.renderFilters = function() {
     Filters.filtersList.forEach(function(obj) {
-        console.log(obj);
         $('#category-filter').append(Filters.createTemplatedFilter(obj));
     })
 };
