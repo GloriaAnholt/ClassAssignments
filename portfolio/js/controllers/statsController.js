@@ -4,7 +4,7 @@
 
     statsController.showStats = function() {
         $('.tab-content').hide();
-        $('.tab-content').filter('#stats').fadeIn('slow');
+        $('#stats').fadeIn('slow');
     };
     module.statsController = statsController;
 })(window);

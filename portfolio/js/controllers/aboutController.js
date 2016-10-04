@@ -4,7 +4,7 @@
 
     aboutController.showAbout = function() {
         $('.tab-content').hide();
-        $('.tab-content').filter('#about').fadeIn('slow');
+        $('#about').fadeIn('slow');
     };
 
     module.aboutController = aboutController;
