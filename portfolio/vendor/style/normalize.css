@@ -1,8 +1,8 @@
 /*! normalize.css v4.2.0 | MIT License | github.com/necolas/normalize.css */
 
 /**
- * 1. Change the default font family in all browsers (opinionated).
- * 2. Correct the line height in all browsers.
+ * 1. Change the default font family in allProjects browsers (opinionated).
+ * 2. Correct the line height in allProjects browsers.
  * 3. Prevent adjustments of font size after orientation changes in IE and iOS.
  */
 
@@ -20,7 +20,7 @@ html {
    ========================================================================== */
 
 /**
- * Remove the margin in all browsers (opinionated).
+ * Remove the margin in allProjects browsers (opinionated).
  */
 
 body {
@@ -84,8 +84,8 @@ hr {
 }
 
 /**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
+ * 1. Correct the inheritance and scaling of font size in allProjects browsers.
+ * 2. Correct the odd `em` font sizing in allProjects browsers.
  */
 
 pre {
@@ -108,7 +108,7 @@ a {
 
 /**
  * Remove the outline on focused links when they are also active or hovered
- * in all browsers (opinionated).
+ * in allProjects browsers (opinionated).
  */
 
 a:active,
@@ -146,8 +146,8 @@ strong {
 }
 
 /**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
+ * 1. Correct the inheritance and scaling of font size in allProjects browsers.
+ * 2. Correct the odd `em` font sizing in allProjects browsers.
  */
 
 code,
@@ -175,7 +175,7 @@ mark {
 }
 
 /**
- * Add the correct font size in all browsers.
+ * Add the correct font size in allProjects browsers.
  */
 
 small {
@@ -184,7 +184,7 @@ small {
 
 /**
  * Prevent `sub` and `sup` elements from affecting the line height in
- * all browsers.
+ * allProjects browsers.
  */
 
 sub,
@@ -244,7 +244,7 @@ svg:not(:root) {
    ========================================================================== */
 
 /**
- * 1. Change the font styles in all browsers (opinionated).
+ * 1. Change the font styles in allProjects browsers (opinionated).
  * 2. Remove the margin in Firefox and Safari.
  */
 
@@ -316,7 +316,7 @@ button:-moz-focusring,
 }
 
 /**
- * Change the border, margin, and padding in all browsers (opinionated).
+ * Change the border, margin, and padding in allProjects browsers (opinionated).
  */
 
 fieldset {
@@ -329,7 +329,7 @@ fieldset {
  * 1. Correct the text wrapping in Edge and IE.
  * 2. Correct the color inheritance from `fieldset` elements in IE.
  * 3. Remove the padding so developers are not caught out when they zero out
- *    `fieldset` elements in all browsers.
+ *    `fieldset` elements in allProjects browsers.
  */
 
 legend {
@@ -422,7 +422,7 @@ menu {
 }
 
 /*
- * Add the correct display in all browsers.
+ * Add the correct display in allProjects browsers.
  */
 
 summary {

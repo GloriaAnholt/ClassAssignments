@@ -3,20 +3,13 @@
 // content.
 // In addition, it creates filterable content selectors.
 
-// Configure a view object, to hold all our functions for dynamic
+// Configure a view object, to hold allProjects our functions for dynamic
 // updates and project-related event handlers.
 
-var projectsView = {};
 
-projectsView.handleTabs = function() {
-    // Turn the main-nav into tabs, show projects page by default
-    $('.main-nav').on('click', 'li', function() {
-        var clicked = $(this).attr('data-content');
-        $('.tab-content').hide();
-        $('.tab-content').filter('#' + clicked).show();
-    });
-    $('.main-nav .tab:first').click();
-};
+
+var projectsView = {};
+var filtersView = {};
 
 projectsView.setTeasers = function() {
     // Limit project descriptions to first p unless link is clicked.
@@ -37,10 +30,9 @@ projectsView.setTeasers = function() {
 };
 
 
-projectsView.handleCategoryFilter = function() {
+projectsView.handleFilterBehavior = function() {
     // On change in drop down, display posts based on selection
     $('#category-filter').on('change', function() {
-        console.log("here's the this val: ", $(this).val());
         if ( $(this).val() ) {
             var selection = $(this).val();
             $('article').hide();
@@ -51,17 +43,35 @@ projectsView.handleCategoryFilter = function() {
     });
 };
 
-projectsView.renderIndexPage = function() {
-    Projects.all.forEach(function(a) {
-        $('#projects').append(a.createHtml());
-    });
+// Here are some stats about the projects
+projectsView.initStatsPage = function() {
 
+    var template = Handlebars.compile($('#stats-template').html());
+
+    Projects.statsBuilder().forEach(function(project) {
+        $('#stats article').append(template(project));
+    })
+    $('#stats article').append('<p>The cumulative projects have ' + Projects.totalWordCount() +
+        ' total words.</p>');
 };
 
-// Call all of the functions to make them run!
-projectsView.handleTabs();
-projectsView.setTeasers();
-projectsView.handleCategoryFilter();
-projectsView.renderIndexPage();
+
+projectsView.renderIndexPage = function() {
+    Projects.allProjects.forEach(function(a) {
+        $('#projects').append(a.createHtml());
+    });
+   // projectsView.handleTabs();
+    projectsView.setTeasers();
+    projectsView.handleFilterBehavior();
+    projectsView.initStatsPage();
+    Filters.loadAll();
+};
+
+filtersView.renderFilters = function() {
+    Filters.filtersList.forEach(function(obj) {
+        $('#category-filter').append(Filters.createTemplatedFilter(obj));
+    })
+};
 
 Projects.fetchAll();
+
