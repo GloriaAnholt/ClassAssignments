@@ -1,11 +1,13 @@
 (function(module){
-    // Compiles the handlebars template and then populates it with data from
-    // the Github API
+    // Hides the other tabs' content, shows just the github tab
 
-    var githubView = {};
+    var githubController = {};
 
+    githubController.showGithub = function() {
+        $('.tab-content').hide();
+        $('#github').fadeIn('slow');
+        $('#github article').fadeIn('slow');
+    };
 
-
-
-    module.githubView = githubView;
+    module.githubController= githubController;
 })(window);
