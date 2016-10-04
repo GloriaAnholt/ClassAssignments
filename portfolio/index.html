@@ -32,6 +32,12 @@
         <p><strong>{{title}}</strong>: {{wordCount}} words written.</p>
     </script>
 
+    <!-- Use Handlebars to set up the github info -->
+    <script id="github-template" type="text/x-handlebars-template">
+        <p>{{description}}</p>
+        <p>{{language}}</p>
+    </script>
+
 </head>
 <body>
     <header class="header clearfix">
@@ -109,13 +115,17 @@
     <script src="vendor/scripts/page.js"></script>
     <!-- Model Files -->
     <script src="js/models/projects.js"></script>
+    <script src="js/models/filters.js"></script>
+    <script src="js/models/github.js"></script>
     <!-- View Files -->
     <script src="js/views/projectView.js"></script>
+    <script src="js/views/githubView.js"></script>
     <!-- Controller Files -->
     <script src="js/controllers/aboutController.js"></script>
     <script src="js/controllers/portfolioController.js"></script>
     <script src="js/controllers/resumeController.js"></script>
     <script src="js/controllers/statsController.js"></script>
+    <script src="js/controllers/githubController.js"></script>
     <script src="js/controllers/routes.js"></script>
 </body>
 </html>
