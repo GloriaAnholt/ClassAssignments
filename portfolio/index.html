@@ -34,8 +34,13 @@
 
     <!-- Use Handlebars to set up the github info -->
     <script id="github-template" type="text/x-handlebars-template">
-        <p>{{description}}</p>
-        <p>{{language}}</p>
+        <article>
+            <p>{{name}}</p>
+            {{#if description}}
+            <p>Description: {{description}}</p>
+            {{/if}}
+            <p>Primary Language: {{language}}</p>
+        </article>
     </script>
 
 </head>
@@ -113,6 +118,7 @@
     <script src="vendor/scripts/jquery-2.1.4.js"></script>
     <script src="vendor/scripts/handlebars.js"></script>
     <script src="vendor/scripts/page.js"></script>
+    <script src="githubToken.js"></script>
     <!-- Model Files -->
     <script src="js/models/projects.js"></script>
     <script src="js/models/filters.js"></script>
