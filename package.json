@@ -2,7 +2,7 @@
   "name": "portfolio",
   "version": "0.0.11",
   "description": "A contrived single-page app personal portfolio page.",
-  "main": "portfolio/server.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
