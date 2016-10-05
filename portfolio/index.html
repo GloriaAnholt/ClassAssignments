@@ -32,6 +32,17 @@
         <p><strong>{{title}}</strong>: {{wordCount}} words written.</p>
     </script>
 
+    <!-- Use Handlebars to set up the github info -->
+    <script id="github-template" type="text/x-handlebars-template">
+        <article>
+            <p>{{name}}</p>
+            {{#if description}}
+            <p>Description: {{description}}</p>
+            {{/if}}
+            <p>Primary Language: {{language}}</p>
+        </article>
+    </script>
+
 </head>
 <body>
     <header class="header clearfix">
@@ -41,9 +52,9 @@
             <ul>
                 <li class="tab" data-content="projects"><a href="/">Portfolio</a></li>
                 <li class="tab" data-content="resume"><a href="/resume">Resume</a></li>
-                <li class="tab" data-content="stats" ><a href="/stats">Stats</a></li>
-                <li class="tab" data-content="about" ><a href="/about">About</a></li>
-                <li><a href="http://github.com/GloriaAnholt" target="_blank" >Github</a></li>
+                <li class="tab" data-content="stats"><a href="/stats">Stats</a></li>
+                <li class="tab" data-content="about"><a href="/about">About</a></li>
+                <li class="tab" data-content="github"><a href="/github">Github</a></li>
                 <li><a href="https://twitter.com/totallygloria" target="_blank" >Twitter</a></li>
                 <li><a href="https://www.linkedin.com/in/GloriaAnholt" target="_blank" >LinkedIn</a></li>
             </ul>
@@ -90,6 +101,14 @@
         </article>
     </section>
 
+    <section id="github" class="tab-content">
+        <h2><a href="http://github.com/GloriaAnholt" target="_blank" >Recent Github Activity</a></h2>
+        <article>
+            <p>Like many devs, I keep my code up on Github. Here are some things I've been working on lately.</p>
+        </article>
+
+    </section>
+
     <!-- Page footer info -->
     <footer>
         <p>&copy; Gloria Anholt, 2016</p>
@@ -99,15 +118,20 @@
     <script src="vendor/scripts/jquery-2.1.4.js"></script>
     <script src="vendor/scripts/handlebars.js"></script>
     <script src="vendor/scripts/page.js"></script>
+    <script src="githubToken.js"></script>
     <!-- Model Files -->
     <script src="js/models/projects.js"></script>
+    <script src="js/models/filters.js"></script>
+    <script src="js/models/github.js"></script>
     <!-- View Files -->
     <script src="js/views/projectView.js"></script>
+    <script src="js/views/githubView.js"></script>
     <!-- Controller Files -->
     <script src="js/controllers/aboutController.js"></script>
     <script src="js/controllers/portfolioController.js"></script>
     <script src="js/controllers/resumeController.js"></script>
     <script src="js/controllers/statsController.js"></script>
+    <script src="js/controllers/githubController.js"></script>
     <script src="js/controllers/routes.js"></script>
 </body>
 </html>

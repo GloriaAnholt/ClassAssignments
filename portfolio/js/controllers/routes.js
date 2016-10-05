@@ -5,6 +5,7 @@ page('/', portfolioController.showPortfolio);
 page('/about', aboutController.showAbout);
 page('/resume', resumeController.showResume);
 page('/stats', statsController.showStats);
+page('/github', githubController.showGithub);
 
 // Invoke page to run all of the URL - function linking.
 page();
