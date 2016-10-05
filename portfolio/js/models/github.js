@@ -17,11 +17,11 @@
     };
 
     ghObj.requestRepos = function() {
-        // Makes the AJAX call to Github API, if successful passes to loadAll to process
+        // Makes the AJAX call to my webserver (which routes with the token to gh)
+        // if successful passes to loadAll to process
         $.ajax({
             method: 'GET',
-            url: 'https://api.github.com/users/GloriaAnholt/repos',
-            headers: { Authorization: 'token ' + token },
+            url: '/github/users/GloriaAnholt/repos',
             success: function(data, status, xhr) {
                 ghObj.loadAllRepos(data);
                 githubView.renderPage();
