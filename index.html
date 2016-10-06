@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gloria Anholts Portfolio</title>
+    <title>Gloria Anholt's Portfolio</title>
     <link rel="stylesheet" href="vendor/style/normalize.css">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
@@ -35,11 +35,12 @@
     <!-- Use Handlebars to set up the github info -->
     <script id="github-template" type="text/x-handlebars-template">
         <article>
-            <p>{{name}}</p>
+            <p><a href="{{html_url}}" tarket="_blank">{{name}}</a></p>
             {{#if description}}
             <p>Description: {{description}}</p>
             {{/if}}
             <p>Primary Language: {{language}}</p>
+            <p>Repo Size: {{size}} kB</p>
         </article>
     </script>
 
